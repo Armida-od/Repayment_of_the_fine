@@ -49,7 +49,7 @@ function payFine() {
             }
         });
         if (matchFound === false) {
-            alert("The fine has been paid and removed from the database.");
+            alert("The information is incorrect, the fine was not paid.");
         }
     } else {
         alert("Amount is not a valid number.");
@@ -58,20 +58,17 @@ function payFine() {
     let passportRegex = /^[А-ЯA-Z]{2}\d{6}$/i;
     if (passportRegex.test(passport.value) === false) {
         alert("You entered incorrect passport information");
-        return;
     }
 
     // Перевірка номера кредитної карти
     let creditCardRegex = /^\d{16}$/;
     if (creditCardRegex.test(creditCardNumber.value) === false) {
         alert("Invalid credit card");
-        return;
     }
 
     // Перевірка CVV
     let cvvRegex = /^\d{3}$/;
     if (cvvRegex.test(cvv.value) === false) {
         alert("Invalid CVV");
-        return;
     }
 }
