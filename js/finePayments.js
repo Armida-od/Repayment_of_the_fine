@@ -28,8 +28,50 @@ let buttonSubmit = document.getElementById("payFine");
  Якщо валідація проходить успішно, то виконати оплату,
  тобто вам потрібно видалити обєкт з DB
  */
-buttonSubmit.addEventListener('click',payFine);
-function payFine(){
-    //Звертаючись до властивості finesData ви отримуєте всі дані з файлу data.js
-    console.log(data.finesData)
+buttonSubmit.addEventListener('click', payFine);
+
+function payFine() {
+    const dbFine = data.finesData;
+    console.log(dbFine);
+    console.log(fineNumber.value);
+    console.log(amount.value);
+
+    //Перевірка номера та суми
+
+    if (!isNaN(amount.value)) {
+        let matchFound = false;
+
+        dbFine.forEach((fine, index) => {
+            if (fineNumber.value === fine.номер && Number(amount.value) === fine.сума) {
+                matchFound = true;
+                dbFine.splice(index, 1); // Видалити об'єкт з бази даних
+                alert("The fine paid and removed from the database.");
+            }
+        });
+        if (matchFound === false) {
+            alert("The fine has been paid and removed from the database.");
+        }
+    } else {
+        alert("Amount is not a valid number.");
+    }
+    // Перевірка паспортних даних
+    let passportRegex = /^[А-ЯA-Z]{2}\d{6}$/i;
+    if (passportRegex.test(passport.value) === false) {
+        alert("You entered incorrect passport information");
+        return;
+    }
+
+    // Перевірка номера кредитної карти
+    let creditCardRegex = /^\d{16}$/;
+    if (creditCardRegex.test(creditCardNumber.value) === false) {
+        alert("Invalid credit card");
+        return;
+    }
+
+    // Перевірка CVV
+    let cvvRegex = /^\d{3}$/;
+    if (cvvRegex.test(cvv.value) === false) {
+        alert("Invalid CVV");
+        return;
+    }
 }
