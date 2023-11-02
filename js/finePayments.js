@@ -32,10 +32,6 @@ buttonSubmit.addEventListener('click', payFine);
 
 function payFine() {
     const dbFine = data.finesData;
-    console.log(dbFine);
-    console.log(fineNumber.value);
-    console.log(amount.value);
-
     //Перевірка номера та суми
 
     if (!isNaN(amount.value)) {
